@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 
-class RollingStockEngineersScreen extends StatelessWidget {
+class RollingStockEngineersScreen extends StatefulWidget {
+  const RollingStockEngineersScreen({super.key});
+
+  @override
+  State<RollingStockEngineersScreen> createState() =>
+      _RollingStockEngineersScreenState();
+}
+
+class _RollingStockEngineersScreenState
+    extends State<RollingStockEngineersScreen> {
+  int _currentIndex = 0;
+
   final List<String> updates = [
-    "🔧 New braking system design change – effective Oct.",
-    "📦 Spare part ABC already ordered by Procurement.",
+    "New braking system design change – effective Oct.",
+    "Spare part ABC already ordered by Procurement.",
   ];
 
   final List<String> jobCards = [
     "Check brake system – Pending",
     "Update motor calibration – Completed",
     "Inspect couplers – Pending",
+  ];
+
+  // Dummy screens for bottom nav navigation (replace with your actual screens)
+  final List<Widget> _screens = const [
+    Placeholder(), // Home
+    Placeholder(), // Search
+    Placeholder(), // Docs
+    Placeholder(), // Profile
   ];
 
   @override
@@ -22,13 +41,12 @@ class RollingStockEngineersScreen extends StatelessWidget {
           title: const Text("Rolling-Stock Engineers"),
           backgroundColor: Colors.teal.shade700,
           elevation: 6,
-          bottom: TabBar(
+          bottom: const TabBar(
             indicatorColor: Colors.white,
-            labelColor: Colors.white, // 👈 Active tab text white
-            unselectedLabelColor:
-                Colors.white70, // 👈 Inactive tab slightly faded
-            labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            tabs: const [
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            tabs: [
               Tab(text: "Updates"),
               Tab(text: "Job Cards"),
             ],
@@ -96,18 +114,51 @@ class RollingStockEngineersScreen extends StatelessWidget {
           ],
         ),
 
-        // Floating action button for notifications
+        // Floating action button with white label text
         floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Colors.teal.shade700,
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text("New parts/design notifications here"),
+                backgroundColor: Colors.teal,
               ),
             );
           },
           icon: const Icon(Icons.notifications, color: Colors.white),
-          label: const Text("Notifications"),
+          label: const Text(
+            "Notifications",
+            style: TextStyle(color: Colors.white), // ✅ White label text
+          ),
+        ),
+
+        // Bottom Navigation Bar
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          selectedItemColor: Colors.teal.shade700, // active label color
+          unselectedItemColor: Colors.grey, // inactive label color
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+
+            // Navigate to the respective screen
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => _screens[index]),
+            );
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.description),
+              label: "Docs",
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          ],
         ),
       ),
     );

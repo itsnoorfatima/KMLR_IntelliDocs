@@ -1,13 +1,29 @@
 import 'package:flutter/material.dart';
-import 'dart:ui'; // for BackdropFilter
+import 'dart:ui';
 
-class StationControllersScreen extends StatelessWidget {
+class StationControllersScreen extends StatefulWidget {
+  const StationControllersScreen({super.key});
+
+  @override
+  State<StationControllersScreen> createState() =>
+      _StationControllersScreenState();
+}
+
+class _StationControllersScreenState extends State<StationControllersScreen> {
+  int _currentIndex = 0;
+
   final List<String> alerts = const [
-    "🚆 Train #204 unavailable till 3 PM (Brake issue).",
-    "⚠️ Fire drill at Station X, follow evacuation guideline.",
+    "Train #204 unavailable till 3 PM (Brake issue).",
+    "Fire drill at Station X, follow evacuation guideline.",
   ];
 
-  const StationControllersScreen({super.key});
+  // Dummy screens for bottom nav (replace with your actual screens)
+  final List<Widget> _screens = const [
+    Placeholder(), // Home
+    Placeholder(), // Search
+    Placeholder(), // Docs
+    Placeholder(), // Profile
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -15,22 +31,20 @@ class StationControllersScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+
+      // ✅ AppBar aligned to left like other screens
       appBar: AppBar(
-        elevation: 0,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.teal.shade700, Colors.teal.shade400],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
         title: const Text(
           "Station Controllers",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontSize: 20,
+          ),
         ),
-        centerTitle: true,
+        backgroundColor: primaryTeal,
+        elevation: 6,
+        centerTitle: false, // left-align title
       ),
 
       body: Padding(
@@ -55,50 +69,11 @@ class StationControllersScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 18),
-
-            /// 📂 Clickable PDF link banner
-            InkWell(
-              borderRadius: BorderRadius.circular(12),
-              onTap: () {
-                // TODO: Open PDF/report page
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Opening original report/PDF…")),
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.teal.shade50,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.teal.shade100, width: 1),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.folder_open, color: primaryTeal, size: 28),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        "Tap to open original report / PDF page",
-                        style: TextStyle(
-                          color: primaryTeal,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
-                    const Icon(Icons.open_in_new, color: Colors.black54),
-                  ],
-                ),
-              ),
-            ),
-
             const SizedBox(height: 24),
 
             /// 🚨 Alerts Heading
             const Text(
-              "🚨  Latest Alerts",
+              "🚨 Latest Alerts",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -185,6 +160,30 @@ class StationControllersScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+
+      // ✅ Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: primaryTeal,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+
+          // Navigate to the respective screen
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => _screens[index]),
+          );
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.description), label: "Docs"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
       ),
     );
   }
