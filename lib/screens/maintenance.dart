@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 
-class MaintenanceScreen extends StatelessWidget {
+class MaintenanceScreen extends StatefulWidget {
   const MaintenanceScreen({super.key});
+
+  @override
+  State<MaintenanceScreen> createState() => _MaintenanceScreenState();
+}
+
+class _MaintenanceScreenState extends State<MaintenanceScreen> {
+  int _currentIndex = 1; // 👈 default to Maintenance tab
+
+  // Screens for nav items (replace with your actual widgets)
+  final List<Widget> _screens = const [
+    Placeholder(), // Home
+    MaintenanceScreen(), // Maintenance
+    Placeholder(), // Docs
+    Placeholder(), // Profile
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
+
       appBar: AppBar(
         title: const Text("Signal Maintenance"),
         backgroundColor: Colors.teal.shade700,
         elevation: 6,
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -99,6 +116,30 @@ class MaintenanceScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+
+      // ✅ Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.teal.shade700,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+
+          // Navigate to respective screen
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => _screens[index]),
+          );
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.description), label: "Docs"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
       ),
     );
   }

@@ -44,25 +44,32 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color uiPrimaryColor = Colors.teal.shade700; // UI theme color
+
     return Scaffold(
+      backgroundColor: Colors.white, // ✅ White background
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("KMRL Dashboard"),
+        title: Text(
+          "Role Selection",
+          style: TextStyle(
+            color: uiPrimaryColor, // ✅ UI primary color
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(
+          color: uiPrimaryColor,
+        ), // optional: back button color
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.teal.shade900, Colors.teal.shade200],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+        color: Colors.white, // ensures the main body is white
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: GridView.builder(
-          padding: EdgeInsets.fromLTRB(16, 100, 16, 16),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          padding: const EdgeInsets.only(top: 20),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
@@ -83,7 +90,7 @@ class DashboardScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   gradient: LinearGradient(
                     colors: [
-                      Colors.white.withOpacity(0.9),
+                      Colors.white.withOpacity(0.95),
                       Colors.teal.shade50.withOpacity(0.8),
                     ],
                     begin: Alignment.topLeft,
@@ -91,27 +98,23 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
-                      blurRadius: 10,
-                      offset: Offset(4, 6),
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 8,
+                      offset: const Offset(3, 5),
                     ),
                   ],
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      roles[index]["icon"],
-                      size: 50,
-                      color: Colors.teal.shade700,
-                    ),
-                    SizedBox(height: 12),
+                    Icon(roles[index]["icon"], size: 50, color: uiPrimaryColor),
+                    const SizedBox(height: 12),
                     Text(
                       roles[index]["title"],
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.teal.shade900,
+                        color: uiPrimaryColor,
                       ),
                       textAlign: TextAlign.center,
                     ),

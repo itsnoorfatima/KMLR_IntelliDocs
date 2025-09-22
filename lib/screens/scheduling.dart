@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 
-class SchedulingScreen extends StatelessWidget {
+class SchedulingScreen extends StatefulWidget {
   const SchedulingScreen({super.key});
+
+  @override
+  State<SchedulingScreen> createState() => _SchedulingScreenState();
+}
+
+class _SchedulingScreenState extends State<SchedulingScreen> {
+  int _currentIndex = 0;
+
+  // Dummy screens for nav items (replace with actual screens)
+  final List<Widget> _screens = const [
+    Placeholder(), // Home
+    Placeholder(), // Search
+    Placeholder(), // Docs
+    Placeholder(), // Profile
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +29,7 @@ class SchedulingScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         children: [
           const Text(
-            "📅 Upcoming Train Schedule",
+            "Upcoming Train Schedule",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
@@ -54,7 +69,7 @@ class SchedulingScreen extends StatelessWidget {
             icon: const Icon(Icons.add, color: Colors.white),
             label: const Text(
               "Add Schedule",
-              style: TextStyle(color: Colors.white), // ✅ White text
+              style: TextStyle(color: Colors.white),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.teal.shade700,
@@ -68,6 +83,30 @@ class SchedulingScreen extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+
+      // ✅ Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.teal.shade700,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+
+          // Navigate to the respective screen
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => _screens[index]),
+          );
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.description), label: "Docs"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
     );

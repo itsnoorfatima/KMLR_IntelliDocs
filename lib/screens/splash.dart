@@ -25,7 +25,6 @@ class _SplashScreenState extends State<SplashScreen>
     _fade = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _controller.forward();
 
-    // Go to dashboard after 3 seconds
     Timer(const Duration(seconds: 3), () {
       if (!mounted) return;
       Navigator.of(
@@ -66,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
                 "KMRL INTELLIDOCS",
                 style: TextStyle(
                   color: primaryTeal,
-                  fontSize: 30, // was 24
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
