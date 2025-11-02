@@ -62,22 +62,22 @@ flutter run
 <table style="width: 100%;">
   <tr>
     <td align="center" width="25%">
-      <img src="https://i.postimg.cc/yourimage1.jpg" width="120"/><br>
+      <img src="https://i.postimg.cc/LXN3Z7ZN/KMRL-Login.jpg" width="120"/><br>
       <b>Login Screen</b><br>
       Secure sign-in using Firebase authentication for different user roles.
     </td>
     <td align="center" width="25%">
-      <img src="https://i.postimg.cc/yourimage2.jpg" width="120"/><br>
+      <img src="https://i.postimg.cc/SsDfz5zP/KMRL-Upload.jpg" width="120"/><br>
       <b>Upload Screen</b><br>
       Upload PDFs or images directly from gallery or file manager for document parsing.
     </td>
     <td align="center" width="25%">
-      <img src="https://i.postimg.cc/yourimage3.jpg" width="120"/><br>
+      <img src="https://i.postimg.cc/FRDVJqJP/KMRL-Doc.jpg" width="120"/><br>
       <b>AI Extraction Dashboard</b><br>
       Extract and visualize data points using built-in AI document parsers.
     </td>
     <td align="center" width="25%">
-      <img src="https://i.postimg.cc/yourimage4.jpg" width="120"/><br>
+      <img src="https://i.postimg.cc/W3XwJKJH/KMRL-Search.jpg" width="120"/><br>
       <b>Search & Insights</b><br>
       Intelligent keyword-based document search and smart recommendations.
     </td>
